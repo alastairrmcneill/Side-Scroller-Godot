@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Assets/Images/Background/Sky.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Images/Background/Hills.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Images/Background/Floor.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/Background/Background.gd" type="Script" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 576, 50 )
+
+[node name="Background" type="Node2D" groups=[
+"Background",
+]]
+script = ExtResource( 4 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="SkyLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 3850, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/SkyLayer"]
+scale = Vector2( 3.85, 3.85 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="HillsLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 2, 1 )
+motion_mirroring = Vector2( 11550, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/HillsLayer"]
+scale = Vector2( 3.85, 3.85 )
+texture = ExtResource( 2 )
+centered = false
+
+[node name="FloorLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 7, 1 )
+motion_mirroring = Vector2( 3850, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/FloorLayer"]
+scale = Vector2( 3.85, 3.85 )
+texture = ExtResource( 3 )
+centered = false
+
+[node name="FloorCollider" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorCollider"]
+position = Vector2( 483, 529 )
+shape = SubResource( 1 )

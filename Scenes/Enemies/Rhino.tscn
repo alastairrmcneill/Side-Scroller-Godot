@@ -1,0 +1,63 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Assets/Images/Enemies/Rhino 1.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/Enemies/Rhino.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Images/Enemies/Rhino 2.png" type="Texture" id=3]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Idle"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 1 ), ExtResource( 3 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CollisionShape2D:polygon")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ PoolVector2Array( 15, -5, 13, -7, 10, -7, 9, -6, 4, -6, 3, -7, -3, -7, -4, -6, -5, -6, -6, -5, -7, -6, -7, -7, -9, -7, -9, -6, -9, -5, -8, -4, -8, -3, -9, -3, -11, 0, -12, 0, -12, 1, -13, 1, -15, -1, -16, 0, -16, 1, -12, 5, -11, 5, -10, 6, -7, 6, -6, 5, -5, 5, -4, 4, -4, 3, -4, 2, -3, 1, 0, 4, 0, 6, -1, 6, -1, 7, 3, 7, 3, 4, 6, 6, 6, 7, 16, 7, 16, 3, 15, 2, 16, 0, 16, -4 ), PoolVector2Array( 15, -5, 13, -7, 10, -7, 9, -6, 4, -6, 3, -7, -3, -7, -4, -6, -5, -6, -6, -5, -7, -6, -7, -6, -9, -6, -9, -6, -9, -4, -8, -4, -8, -3, -9, -3, -11, 0, -12, 0, -12, 2, -13, 2, -15, 0, -16, 1, -16, 2, -12, 6, -11, 6, -10, 7, -7, 7, -6, 6, -5, 5, -4, 4, -4, 3, -4, 2, -3, 1, 0, 4, 0, 6, -1, 6, -1, 7, 3, 7, 3, 4, 6, 6, 6, 7, 16, 7, 16, 3, 15, 2, 16, 0, 16, -4 ) ]
+}
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 10, 97 )
+
+[node name="Rhino" type="Area2D" groups=[
+"enemyGroup",
+]]
+position = Vector2( 0, 450 )
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 3.85, 3.85 )
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+scale = Vector2( 3.85, 3.85 )
+polygon = PoolVector2Array( 15, -5, 13, -7, 10, -7, 9, -6, 4, -6, 3, -7, -3, -7, -4, -6, -5, -6, -6, -5, -7, -6, -7, -6, -9, -6, -9, -6, -9, -4, -8, -4, -8, -3, -9, -3, -11, 0, -12, 0, -12, 2, -13, 2, -15, 0, -16, 1, -16, 2, -12, 6, -11, 6, -10, 7, -7, 7, -6, 6, -5, 5, -4, 4, -4, 3, -4, 2, -3, 1, 0, 4, 0, 6, -1, 6, -1, 7, 3, 7, 3, 4, 6, 6, 6, 7, 16, 7, 16, 3, 15, 2, 16, 0, 16, -4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Idle = SubResource( 1 )
+
+[node name="ScoreArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScoreArea"]
+position = Vector2( 84, -69 )
+shape = SubResource( 2 )
+[connection signal="body_entered" from="." to="." method="_on_Rhino_body_entered"]
+[connection signal="body_entered" from="ScoreArea" to="." method="_on_ScoreArea_body_entered"]
+[connection signal="body_exited" from="ScoreArea" to="." method="_on_ScoreArea_body_exited"]

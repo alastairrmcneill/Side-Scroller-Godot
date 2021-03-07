@@ -1,0 +1,118 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Assets/Fonts/FFFFORWA.TTF" type="DynamicFontData" id=1]
+[ext_resource path="res://Scenes/Menu/MenuLayer.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Images/Buttons/Down released.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Images/Buttons/Down pressed.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Images/Buttons/Up pressed.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Images/Buttons/Up released.png" type="Texture" id=6]
+
+[sub_resource type="DynamicFont" id=1]
+size = 30
+outline_size = 3
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 30
+outline_size = 3
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 400, 200 )
+
+[node name="MenuLayer" type="CanvasLayer"]
+script = ExtResource( 2 )
+
+[node name="StartMenu" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="StartMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "Tap to start"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EndMenu" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -4.0
+margin_bottom = -4.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EndMenu"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -175.0
+margin_right = 300.0
+margin_bottom = 175.0
+custom_constants/separation = 58
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreLabel" type="Label" parent="EndMenu/VBoxContainer"]
+margin_right = 600.0
+margin_bottom = 42.0
+custom_fonts/font = SubResource( 1 )
+text = "Score: "
+align = 1
+valign = 1
+
+[node name="HighScoreLabel" type="Label" parent="EndMenu/VBoxContainer"]
+margin_top = 100.0
+margin_right = 600.0
+margin_bottom = 142.0
+custom_fonts/font = SubResource( 1 )
+text = "High Score: "
+align = 1
+valign = 1
+
+[node name="RestartButton" type="Button" parent="EndMenu/VBoxContainer"]
+margin_top = 200.0
+margin_right = 600.0
+margin_bottom = 350.0
+rect_min_size = Vector2( 600, 150 )
+custom_fonts/font = SubResource( 2 )
+text = "Restart"
+flat = true
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="Buttons" type="CanvasLayer" parent="."]
+
+[node name="JumpButton" type="TouchScreenButton" parent="Buttons"]
+visible = false
+position = Vector2( 30, 430 )
+scale = Vector2( 0.5, 0.5 )
+normal = ExtResource( 6 )
+pressed = ExtResource( 5 )
+shape = SubResource( 5 )
+action = "ui_up"
+
+[node name="SlideButton" type="TouchScreenButton" parent="Buttons"]
+visible = false
+position = Vector2( 894, 430 )
+scale = Vector2( 0.5, 0.5 )
+normal = ExtResource( 3 )
+pressed = ExtResource( 4 )
+shape = SubResource( 5 )
+action = "ui_down"
+[connection signal="pressed" from="EndMenu/VBoxContainer/RestartButton" to="." method="_on_RestartButton_pressed"]
